@@ -7,7 +7,10 @@ interface ReviewOverviewProps {
 
 const ReviewOverview = ({ reviewCount }: ReviewOverviewProps) => {
   const { sumScore, ...rest } = reviewCount as ReviewCount;
-  const safeSumScore = sumScore ?? 0;
+  // const safeSumScore = sumScore ?? 0;
+
+  const totalCount = (rest.rate5Length || 0) + (rest.rate4Length || 0) + (rest.rate3Length || 0) + (rest.rate2Length || 0) + (rest.rate1Length || 0);
+  const averageRating = totalCount > 0 ? (sumScore ?? 0) / totalCount : 0;
 
   const ratings = [
     rest.rate5Length ?? 0,
@@ -28,10 +31,10 @@ const ReviewOverview = ({ reviewCount }: ReviewOverviewProps) => {
     <div className="border-gray03 flex h-68.75 items-center justify-between rounded-xl border px-61">
       <div className="flex flex-col items-center gap-6 leading-none">
         <p className="text-gray03 text-[2.375rem] leading-none font-extrabold">
-          <span className="text-black01 text-[4rem]">{safeSumScore.toFixed(1)}</span> / 5
+          <span className="text-black01 text-[4rem]">{averageRating.toFixed(1)}</span> / 5
         </p>
         <Stars
-          rating={safeSumScore}
+          rating={averageRating}
           size="large"
         />
       </div>
