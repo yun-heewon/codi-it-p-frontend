@@ -35,7 +35,7 @@ export const connectNotificationSSE = () => {
  
  // 💡 3. EventSourcePolyfill 생성 시, 헤더 옵션을 제거합니다.
  const es = new EventSourcePolyfill(sseUrl, {
-  withCredentials: false, 
+  withCredentials: true, 
   heartbeatTimeout: 60000,
   });
   
